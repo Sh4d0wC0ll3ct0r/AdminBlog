@@ -7,13 +7,23 @@ router.get('/', function(req, res, next) {
 });
 
 var mongoose = require('mongoose');
-var Blog= mongoose.model('blog');
+var Posts= mongoose.model('blog');
 
-router.get('/blog',function(req,res,next){
-    Blog.find(function(err,blog){
+router.get('/posts',function(req,res,next){
+    Posts.find(function(err,posts){
       if(err){return next(err)}
-      res.json(blog);
+      res.json(posts);
     });
 });
+
+router.post('/post',function(req,res,next){
+     var Post= new Posts(req.body);
+     Post.save(function(err,post){
+       if(err){ return next(err) }
+        res.json(post);
+     });
+});
+
+
 
 module.exports = router;
