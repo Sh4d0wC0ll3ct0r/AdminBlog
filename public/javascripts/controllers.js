@@ -10,7 +10,7 @@ angular.module('appBlog')
         $scope.saludo2='Hola nuevas caracteristicas';
 
     }])
-    .controller('ctrlMenu',['$scope','$stateParams','$location',function($scope,$location){
+    .controller('ctrlMenu',['$scope','$location',function($scope,$location){
 
          $scope.isActive = function (viewLocation) {
              return viewLocation === $location.path();

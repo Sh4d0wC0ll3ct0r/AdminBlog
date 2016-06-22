@@ -36,14 +36,13 @@
 
 <body>
 
-<div class="blog-masthead" ng-controller="ctrlMenu">
+<div class="blog-masthead" >
   <div class="container">
-    <nav class="blog-nav">
-      <a class="blog-nav-item active " ng-class="{ active: isActive('/home')}"  ui-sref="home">Home</a>
-      <a class="blog-nav-item " ng-class="{ active: isActive('/newfeatures')}" ui-sref="newfeatures">New features</a>
-      <a class="blog-nav-item " href="#">Press</a>
-      <a class="blog-nav-item "  href="#">New hires</a>
-      <a class="blog-nav-item " href="#">About</a>
+    <nav class="blog-nav" ng-controller="ctrlMenu">
+      <a class="blog-nav-item active" ng-class="{ active: isActive('/home')}"  ui-sref="home">Home</a>
+      <a class="blog-nav-item " ng-class="{ active: isActive('/usuariosregistrados')}" ui-sref="usuariosRegistrados">Usuarios Registrados</a>
+      <a class="blog-nav-item " ng-class="{ active: isActive('/adminregistrados')}" ui-sref="adminRegistrados">Admin Registrados</a>
+      <a class="blog-nav-item " ng-class="{ active: isActive('/about')}" ui-sref="about">About</a>
     </nav>
   </div>
 </div>
