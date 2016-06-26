@@ -23,6 +23,7 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
   <script type="text/javascript" src="javascripts/app.js"></script>
   <script type="text/javascript" src="javascripts/controllers.js"></script>
+  <script type="text/javascript" src="javascripts/services.js"></script>
   <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
   <!--[if lt IE 9]><script src="javascripts/ie8-responsive-file-warning.js"></script><![endif]-->
   <script src="javascripts/ie-emulation-modes-warning.js"></script>
@@ -40,7 +41,7 @@
   <div class="container">
     <nav class="blog-nav" ng-controller="ctrlMenu">
       <a class="blog-nav-item active" ng-class="{ active: isActive('/home')}"  ui-sref="home">Home</a>
-      <a class="blog-nav-item " ng-class="{ active: isActive('/usuariosregistrados')}" ui-sref="usuariosRegistrados">Usuarios Registrados</a>
+      <a class="blog-nav-item " ng-class="{ active: isActive('/usuarios')}" ui-sref="usuarios">Usuarios Registrados</a>
       <a class="blog-nav-item " ng-class="{ active: isActive('/adminregistrados')}" ui-sref="adminRegistrados">Admin Registrados</a>
       <a class="blog-nav-item " ng-class="{ active: isActive('/about')}" ui-sref="about">About</a>
     </nav>
@@ -64,8 +65,8 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="javascript/jquery.min.js"><\/script>')</script>
-<script src="javascript/bootstrap.min.js"></script>
+<script type="text/javascript" src="javascript/bootstrap.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="javascript/ie10-viewport-bug-workaround.js"></script>
+<script type="text/javascript" src="javascript/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>

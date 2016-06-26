@@ -8,10 +8,10 @@ angular.module('appBlog',['ui.router']).config(function($stateProvider,$urlRoute
             templateUrl:'views/home.html',
             controller:'ctrlHome'
 
-        }).state('newfeatures',{
-           url:'/newfeatures',
-           templateUrl:'views/newfeatures.html',
-           controller:'ctrlNewFeatures'
+        }).state('usuarios',{
+           url:'/usuarios',
+           templateUrl:'views/usuarios.html',
+           controller:'ctrlUsuarios'
         });
     $urlRouterProvider.otherwise('home');
 });
