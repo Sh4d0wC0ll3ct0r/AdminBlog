@@ -3,36 +3,29 @@ angular.module('appBlog')
 
     var comun={};
     comun.posts=[];
-    comun.archivos=[];
+    comun.postsxMonth=[];
     comun.getAll= function(){
         return $http.get('/posts')
             .success(function(data){
 
                for(var i = 0; i < data.length; i++) {
                    data[i].fechaPubli=data[i].fechaPubli.toString().substring(0,10);
-                   //comun.archivos[i] ={'mes':data[i].fechaPubli.substring(5,7),'ano':data[i].fechaPubli.substring(0,4)};
-                   comun.archivos.push({'mes':data[i].fechaPubli.substring(5,7),'ano':data[i].fechaPubli.substring(0,4)});
-
+                   //comun.archivos.push({'mes':data[i].fechaPubli.substring(5,7),'ano':data[i].fechaPubli.substring(0,4)});
                 }
-                comun.archivos.array.filter(function(){});
-
-             /*  for(var d = 0; d < comun.archivos.length; d++) {
-
-                        if (comun.archivos[d].mes.indexOf()) {
-                            delete comun.archivos[j];
-                            console.log(comun.archivos[j].mes);
-                        }
-
-                }*/
-
-                // delete comun.archivos[0];
+                console.log(data);
                  angular.copy(data,comun.posts);
-                 console.log(array);
-              //  console.log(comun.archivos[0].mes);
-
-
             });
     };
-
+    comun.getPostxMonth= function(mes){
+      return $http.get('/post/'+mes).
+              success(function(data){
+                  for(var i = 0; i < data.length; i++) {
+                      data[i].fechaPubli=data[i].fechaPubli.toString().substring(0,10);
+                      //comun.archivos.push({'mes':data[i].fechaPubli.substring(5,7),'ano':data[i].fechaPubli.substring(0,4)});
+                  }
+                    console.log(data);
+                    angular.copy(data,comun.postsxMonth);
+               });
+    };
       return comun;
 });

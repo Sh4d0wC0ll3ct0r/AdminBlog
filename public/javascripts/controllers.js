@@ -2,17 +2,19 @@
  * Created by oxrl on 6/19/16.
  */
 angular.module('appBlog')
-    .controller('ctrlHome',['$scope','comun',function($scope,comun){
+    .controller('ctrlHome',['$scope','$state','comun',function($scope,$state,comun){
         //console.log("hola");
         comun.getAll();
+
         $scope.post = {};
-
         $scope.posts= comun.posts;
-        $scope.archivos=comun.archivos;
 
-
-        // console.log($scope.archivos);
-
+        $scope.getPostxMonth=function(mes){
+              comun.getPostxMonth(mes);
+              $scope.posts= comun.postsxMonth;
+              //console.log(comun.postsxMonth);
+              $state.go('home');
+        }
     }])
     .controller('ctrlNewFeatures',['$scope',function($scope){
         $scope.saludo2='Hola nuevas caracteristicas';

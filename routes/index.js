@@ -16,6 +16,19 @@ router.get('/posts',function(req,res,next){
     });
 });
 
+router.get('/post/:mes',function(req,res,next){
+     var mes = req.params.mes;
+
+   //  Posts.find({'fechaPubli':{'$gte':'2016-'+mes+'-01'}},function(err,posts){
+         Posts.find({'fechaPubli':{'$gte':'2016-'+mes+'-01','$lt':'2016-'+mes+'-31'}},function(err,posts){
+             if(err){return next(err)}
+                res.json(posts);
+         //res.send(posts);
+     });
+});
+
+
+
 router.post('/post',function(req,res,next){
      var Post= new Posts(req.body);
      Post.save(function(err,post){
