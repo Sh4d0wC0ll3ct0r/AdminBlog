@@ -13,5 +13,5 @@ angular.module('appBlog',['ui.router']).config(function($stateProvider,$urlRoute
            templateUrl:'views/usuarios.html',
            controller:'ctrlUsuarios'
         });
-    //$urlRouterProvider.otherwise('home');
+   /* $urlRouterProvider.otherwise('home');*/
 });
