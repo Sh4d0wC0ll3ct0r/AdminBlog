@@ -1,4 +1,7 @@
 var express = require('express');
+var passport = require('passport');
+var mongoose = require('mongoose');
+var Posts= mongoose.model('blog');
 var router = express.Router();
 
 /* GET home page. */
@@ -6,8 +9,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-var mongoose = require('mongoose');
-var Posts= mongoose.model('blog');
+
 
 router.get('/posts',function(req,res,next){
     Posts.find(function(err,posts){
@@ -37,8 +39,21 @@ router.post('/post',function(req,res,next){
      });
 });
 
-router.get('/login',function(req,res,next){
-    res.render('login', { user : req.user });
+
+router.get('/admin/login', function(req, res, next) {
+    console.log('hola1');
+    res.render('admin/login');
+});
+
+router.post('/admin/login', passport.authenticate('local', { failureRedirect: '/admin/login', failureFlash: true }), function(req, res, next) {
+
+
+    req.session.save(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/admin/dashboard');
+    });
 });
 
 module.exports = router;

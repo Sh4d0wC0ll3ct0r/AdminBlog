@@ -4,13 +4,21 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var mongoose = require('mongoose');
 
-require('./models/ejemplo1');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var flash = require('connect-flash');
 
-mongoose.connect('mongodb://localhost/ejemplo1');
+var blog =require('./models/blog');
 
+mongoose.connect('mongodb://localhost/ejemplo2');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('BD sin error ')
+});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
