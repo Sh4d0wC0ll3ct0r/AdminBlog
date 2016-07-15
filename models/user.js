@@ -2,17 +2,9 @@
  * Created by oxrl on 6/21/16.
  */
 var mongoose = require('mongoose');
+var passportLocalMongoose = require('passport-local-mongoose');
 
-
-mongoose.model('blog',new mongoose.Schema({
-    title:  String,
-    author: String,
-    comments: String,
-    fechaPubli:{ type: Date, default: Date.now},
-    hidden: Boolean
-}));
-
-mongoose.model('users', new mongoose.Schema({
+module.exports =  mongoose.model('users', new mongoose.Schema({
     username:String,
     password:String,
     is_admin: Boolean,
@@ -29,4 +21,6 @@ mongoose.model('users', new mongoose.Schema({
     personal_state: String,
     img_url: String
 
-}));
+}).plugin(passportLocalMongoose));
+
+

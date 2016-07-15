@@ -28,22 +28,26 @@ angular.module('appBlog')
          };
         
 }])
-    .controller('ctrlAdmin',['$scope','$location',function($scope,$location) {
-
+    .controller('ctrlAdmin',['$scope','$location','comun',function($scope,$location,comun) {
+        console.log('paso1');
         $scope.error = false;
         $scope.disabled = true;
+        $scope.login= function() {
+            console.log('paso 2');
+            comun.login($scope.loginForm.username, $scope.loginForm.password)
+              .then(function () {
+                  $location.path('/');
+                  $scope.disabled = false;
+                  $scope.loginForm = {};
+              })
+              // handle error
+              .catch(function () {
+                  $scope.error = true;
+                  $scope.errorMessage = "Invalid username and/or password";
+                  $scope.disabled = false;
+                  $scope.loginForm = {};
+              });
+      };
 
-        comun.login($scope.loginForm.username,$scope.loginForm.password)
-            .then(function () {
-                $location.path('/');
-                $scope.disabled = false;
-                $scope.loginForm = {};
-            })
-            // handle error
-            .catch(function () {
-                $scope.error = true;
-                $scope.errorMessage = "Invalid username and/or password";
-                $scope.disabled = false;
-                $scope.loginForm = {};
-            });
+
     }]);

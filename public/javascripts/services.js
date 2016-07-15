@@ -12,7 +12,7 @@ angular.module('appBlog')
                    data[i].fechaPubli=data[i].fechaPubli.toString().substring(0,10);
                    //comun.archivos.push({'mes':data[i].fechaPubli.substring(5,7),'ano':data[i].fechaPubli.substring(0,4)});
                 }
-                console.log(data);
+                 console.log(data);
                  angular.copy(data,comun.posts);
             });
     };
@@ -29,26 +29,27 @@ angular.module('appBlog')
                });
     };
     comun.login= function(username, password){
-
+        console.log('paso 3'+username+'-'+password);
       var deferred = $q.defer();
-      return $http.post('/login',{username: username, password: password})
-          .success(function (data, status) {
-           console.log('holaaaaa23');
-              if(status === 200 && data.status){
-                  user = true;
-                  deferred.resolve();
+      return $http.post('/admin/login',{username: username, password: password});
+        /*  .success(function (data, status) {
+           console.log('paso 6');
+              if(status === 200){
+                  console.log('ok');
+                 // $location.path('../admin/dashboard.ejs');
               } else {
-                  user = false;
-                  deferred.reject();
+                  console.log('error');
+                  //$location.path('../admin/dashboard.ejs');
               }
           })
           // handle error
           .error(function (data) {
+              console.log('error OK');
               user = false;
               deferred.reject();
           });
 
-        return deferred.promise;
+        return deferred.promise;*/
     };
         return comun;
 }]);

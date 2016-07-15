@@ -5,20 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
 var passport = require('passport');
+var bCrypt = require('bcrypt-nodejs');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
-
-var blog =require('./models/blog');
-
-mongoose.connect('mongodb://localhost/ejemplo2');
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('BD sin error ')
-});
+var User =require('./models/user');
+var post =require('./models/post');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -36,9 +28,85 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+
+app.use(passport.initialize());
+app.use(flash());
+app.use(passport.session());
+/*
+var initPassport = require('./passport/init');
+initPassport(passport); 
+*/
+
+/*app.use('/users', users);*/
+/************** Configuración de la estrategia*************************/
+passport.serializeUser(function(user, done) {
+  console.log('serializing user: ');console.log(user);
+  done(null, user._id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    console.log('deserializing user:',user);
+    done(err, user);
+  });
+});
+passport.use('local', new LocalStrategy({
+      passReqToCallback : true
+    },
+    function(req, username, password, done) {
+      // check in mongo if a user with username exists or not
+      User.findOne({ 'username' :  username },
+          function(err, user) {
+            // In case of any error, return using the done method
+            if (err)
+              return done(err);
+            // Username does not exist, log the error and redirect back
+            if (!user){
+              console.log('User Not Found with username '+username);
+              return done(null, false, req.flash('message', 'User Not found.'));
+            }
+              console.log(user);
+            // User exists but wrong password, log the error
+           if (!isValidPassword(user, password)){
+              console.log('Invalid Password');
+              return done(null, false, req.flash('message', 'Invalid Password')); // redirect back to login page
+            }
+            // User and password both match, return user from done method
+            // which will be treated like success
+            return done(null, user);
+          }
+      );
+
+    })
+);
+
+var isValidPassword = function(user, password){
+  return bCrypt.compareSync(password, user.password);
+};
+
+
+
+/*passport.use(new LocalStrategy(User.authenticate()));*/
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+mongoose.connect('mongodb://localhost:27017/ejemplo1');
 
 app.use('/', routes);
-app.use('/users', users);
+
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('BD sin error ')
+});
+
+
+
+/***********************************************************************/
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
