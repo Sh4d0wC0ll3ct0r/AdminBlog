@@ -9,13 +9,21 @@ angular.module('appBlog')
         $scope.post = {};
         $scope.posts= comun.posts;
 
+        $scope.currentPage = 0;
+        $scope.pageSize = 10;
+
+
         $scope.getPostxMonth=function(mes){
 
               comun.getPostxMonth(mes);
               $scope.posts= comun.postsxMonth;
+            /*  $location.url('/Login/'+mes);-*/
               //console.log(comun.postsxMonth);
-
         }
+        $scope.numberOfPages = function() {
+            return Math.ceil($scope.posts.length / $scope.pageSize);
+        };
+
     }])
     .controller('ctrlNewFeatures',['$scope',function($scope){
         $scope.saludo2='Hola nuevas caracteristicas';
@@ -50,4 +58,17 @@ angular.module('appBlog')
       };
 
 
-    }]);
+    }]);/*.controller('MyCtrl',['$scope',function($scope){
+
+    $scope.currentPage = 0;
+    $scope.pageSize = 10;
+    $scope.data = [];
+    $scope.numberOfPages = function() {
+        return Math.ceil($scope.data.length / $scope.pageSize);
+    };
+    for (var i = 0; i < 45; i++) {
+        $scope.data.push("Item " + i);
+    }
+
+
+}]);*/

@@ -13,8 +13,13 @@ angular.module('appBlog',['ui.router']).config(function($stateProvider,$urlRoute
         {
            url:'/usuarios',
            templateUrl:'views/usuarios.html',
-           controller:'ctrlUsuarios'
+           controller:'MyCtrl'
         });
 
     $urlRouterProvider.otherwise('home');
+}).filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
 });

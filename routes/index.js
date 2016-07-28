@@ -1,7 +1,7 @@
 var express = require('express');
 var passport = require('passport');
 var mongoose = require('mongoose');
-var Posts= mongoose.model('blog');
+var Posts= mongoose.model('posts');
 var User =mongoose.model('users');
 var bCrypt = require('bcrypt-nodejs');
 var router = express.Router();
@@ -50,14 +50,22 @@ router.get('/posts',function(req,res,next){
 });
 
 router.get('/admin/login', function(req, res, next) {
-    console.log('hola1');
+
     res.render('admin/login');
 });
 
 
-router.get('/admin/dashboard', function(req, res, next) {
+router.get('/admin/dashboard',ensureAuthenticated, function(req, res, next) {
     res.render('admin/dashboard');
 });
+
+function ensureAuthenticated(req,res,next){
+    if(req.isAuthenticated())
+    {
+        return next();
+    }
+    res.redirect('/admin/login');
+}
 
 router.post('/registrar', function(req, res, next) {
    // console.log(req.username+'-'+req.body.username);
@@ -89,13 +97,13 @@ User.findOne({username: req.body.username}, function (err, user) {
 });
 
 router.post('/admin/login', passport.authenticate('local', { failureRedirect: '/admin/login', failureFlash: true }), function(req, res, next) {
-    console.log('paso 4'+req.body);
+
     req.session.save(function (err) {
         if (err) {
-            console.log('errrorrrr'+req.body);
+
             return next(err);
         }
-        console.log('paso 5');
+
         res.redirect('/admin/dashboard');
     });
 });

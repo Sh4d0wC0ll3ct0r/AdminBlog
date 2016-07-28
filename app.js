@@ -66,12 +66,14 @@ passport.use('local', new LocalStrategy({
               console.log('User Not Found with username '+username);
               return done(null, false, req.flash('message', 'User Not found.'));
             }
-              console.log(user);
+              console.log('usuario :'+ user);
+
             // User exists but wrong password, log the error
            if (!isValidPassword(user, password)){
               console.log('Invalid Password');
               return done(null, false, req.flash('message', 'Invalid Password')); // redirect back to login page
             }
+
             // User and password both match, return user from done method
             // which will be treated like success
             return done(null, user);
@@ -82,6 +84,8 @@ passport.use('local', new LocalStrategy({
 );
 
 var isValidPassword = function(user, password){
+    console.log('password1 :'+ password);
+    console.log('password2 :'+  user.password);
   return bCrypt.compareSync(password, user.password);
 };
 

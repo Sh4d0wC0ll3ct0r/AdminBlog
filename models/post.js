@@ -5,7 +5,7 @@
 var mongoose = require('mongoose');
 
 
-module.exports =  mongoose.model('blog',new mongoose.Schema({
+module.exports =  mongoose.model('posts',new mongoose.Schema({
     title:  String,
     author: String,
     comments: String,
