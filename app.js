@@ -96,7 +96,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 //mongoose.connect('mongodb://localhost:27017/ejemplo1');
 
-mongoose.connect('mongodb://ds031865.mlab.com:31865/ejemplo1');
+mongoose.connect('mongodb://oxrl:Majcp071102@ds031865.mlab.com:31865/ejemplo1');
 
 //mongodb://<dbuser>:<dbpassword>@ds031865.mlab.com:31865/ejemplo1
 app.use('/', routes);
