@@ -111,6 +111,7 @@ router.post('/admin/login', passport.authenticate('local', { failureRedirect: '/
         res.redirect('/admin/dashboard');
     });
 });
+
 var createHash = function(password){
     return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
 };
